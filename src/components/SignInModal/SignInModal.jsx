@@ -1,123 +1,158 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import { authorize } from '../../utils/auth';
 import './SignInModal.css';
 
 function SignInModal({ isOpen, onClose, onSwitchToSignUp }) {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-  const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setEmailError('Email is required');
+      return false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address');
+      return false;
     }
+    setEmailError('');
+    return true;
   };
+  
+  const validatePassword = (password) => {
+    if (!password) {
+      setPasswordError('Password is required');
+      return false;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+      return false;
+    }
+    setPasswordError('');
+    return true;
+  };
+  
+  const validateForm = useCallback(() => {
+    const isEmailValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isPasswordValid = password && password.length >= 6;
+    setIsFormValid(isEmailValid && isPasswordValid);
+    return isEmailValid && isPasswordValid;
+  }, [email, password]);
 
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+  useEffect(() => {
+    if (isOpen) {
+      validateForm();
+    } else {
+      setEmail('');
+      setPassword('');
+      setEmailError('');
+      setPasswordError('');
+      setEmailTouched(false);
+      setPasswordTouched(false);
+      setError('');
     }
-    
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
+  }, [isOpen, validateForm]);
+  
+  useEffect(() => {
+    if (isOpen) {
+      validateForm();
     }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  }, [email, password, isOpen, validateForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Handle sign in logic here
-      console.log('Sign in:', formData);
-      onClose();
+    setEmailTouched(true);
+    setPasswordTouched(true);
+    
+    const formIsValid = validateForm();
+    
+    if (!formIsValid) {
+      return;
     }
-  };
+    
+    setIsLoading(true);
+    setError('');
 
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    authorize(email, password)
+      .then((data) => {
+        if (data && data.token) {
+          localStorage.setItem("jwt", data.token);
+          setEmail('');
+          setPassword('');
+          setError('');
+          onClose();
+          window.location.reload();
+        } else {
+          setError('Login response missing token');
+        }
+      })
+      .catch((err) => {
+        if (err.details && err.details.message) {
+          setError(`Error: ${err.details.message}`);
+        } else {
+          setError('Login failed. Please check your email and password.');
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
-
-  if (!isOpen) return null;
 
   return (
-    <div className="modal modal_opened" onClick={handleOverlayClick}>
-      <div className="modal__container modal__container_type_signin">
-        <button 
-          className="modal__close-button" 
-          type="button" 
-          onClick={onClose}
-          aria-label="Close modal"
-        >
-          ×
-        </button>
-        
-        <h2 className="modal__title">Sign in</h2>
-        
-        <form className="modal__form" onSubmit={handleSubmit}>
-          <div className="modal__input-container">
-            <label className="modal__label">Email</label>
-            <input
-              className={`modal__input ${errors.email ? 'modal__input_type_error' : ''}`}
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Enter email"
-              required
-            />
-            {errors.email && <span className="modal__error">{errors.email}</span>}
-          </div>
-          
-          <div className="modal__input-container">
-            <label className="modal__label">Password</label>
-            <input
-              className={`modal__input ${errors.password ? 'modal__input_type_error' : ''}`}
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter password"
-              required
-            />
-            {errors.password && <span className="modal__error">{errors.password}</span>}
-          </div>
-          
-          <button className="modal__submit-button" type="submit">
-            Sign in
-          </button>
-        </form>
-        
-        <p className="modal__switch-text">
-          or{' '}
-          <button 
-            className="modal__switch-button" 
-            type="button" 
-            onClick={onSwitchToSignUp}
-          >
-            Sign up
-          </button>
-        </p>
-      </div>
-    </div>
+    <ModalWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      title="Sign in"
+      buttonText={isLoading ? 'Signing in...' : 'Sign in'}
+      buttonTextAlt="Sign up"
+      onButtonClick={onSwitchToSignUp}
+      disabled={isLoading || !isFormValid}
+      showDefaultButtons={true}
+    >
+      <label className="login-modal__label">
+        <p className="login-modal__input-title">Email</p>
+        <input
+          className={`login-modal__input ${emailTouched && emailError ? 'login-modal__input_error' : ''}`}
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => {
+            setEmailTouched(true);
+            validateEmail(email);
+          }}
+          placeholder="Email"
+          required
+        />
+        {emailTouched && emailError && <p className="login-modal__input-error">{emailError}</p>}
+      </label>
+      <label className="login-modal__label">
+        <p className="login-modal__input-title">Password</p>
+        <input
+          className={`login-modal__input ${passwordTouched && passwordError ? 'login-modal__input_error' : ''}`}
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onBlur={() => {
+            setPasswordTouched(true);
+            validatePassword(password);
+          }}
+          placeholder="Password"
+          required
+        />
+        {passwordTouched && passwordError && <p className="login-modal__input-error">{passwordError}</p>}
+      </label>
+      {error && <p className="login-modal__error">{error}</p>}
+    </ModalWithForm>
   );
 }
 

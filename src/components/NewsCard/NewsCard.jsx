@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { useSavedArticles } from '../../contexts/SavedArticlesContext'
 import './NewsCard.css'
 
 function NewsCard({ article, keyword }) {
-  const [isSaved, setIsSaved] = useState(false)
+  const { saveArticle, removeArticle, isArticleSaved } = useSavedArticles()
+  const isSaved = isArticleSaved(article)
 
-  const handleSaveClick = () => {
-    setIsSaved(!isSaved)
-    // TODO: Implement actual save functionality
+  const handleBookmarkClick = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    if (isSaved) {
+      removeArticle(article)
+    } else {
+      saveArticle(article, keyword)
+    }
   }
 
   const formatDate = (dateString) => {
@@ -21,17 +28,17 @@ function NewsCard({ article, keyword }) {
   return (
     <article className="news-card">
       <div className="news-card__image-container">
-        <img 
-          src={article.urlToImage || '/src/images/placeholder.jpg'} 
+        <img
+          src={article.urlToImage || "/src/images/placeholder.jpg"}
           alt={article.title}
           className="news-card__image"
         />
         <button 
-          className={`news-card__save-button ${isSaved ? 'news-card__save-button_saved' : ''}`}
-          onClick={handleSaveClick}
-          aria-label={isSaved ? 'Remove from saved' : 'Save article'}
+          className={`news-card__bookmark-button ${isSaved ? 'news-card__bookmark-button_saved' : ''}`}
+          onClick={handleBookmarkClick}
+          aria-label={isSaved ? 'Remove bookmark' : 'Bookmark article'}
         >
-          <svg className="news-card__save-icon" viewBox="0 0 24 24">
+          <svg className="news-card__bookmark-icon" viewBox="0 0 24 24">
             <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
           </svg>
         </button>
@@ -53,9 +60,9 @@ function NewsCard({ article, keyword }) {
           {article.source?.name || 'Unknown Source'}
         </span>
       </div>
-      <a 
-        href={article.url} 
-        target="_blank" 
+      <a
+        href={article.url}
+        target="_blank"
         rel="noopener noreferrer"
         className="news-card__link"
         aria-label="Read full article"
@@ -63,7 +70,7 @@ function NewsCard({ article, keyword }) {
         <span className="visually-hidden">Read full article</span>
       </a>
     </article>
-  )
+  );
 }
 
 export default NewsCard

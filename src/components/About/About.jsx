@@ -5,6 +5,13 @@ function About() {
     <section className="about">
       <div className="about__container">
         <div className="about__content">
+          <div className="about__image">
+            <img 
+              src="/src/images/placeholder.png" 
+              alt="Author" 
+              className="about__author-photo"
+            />
+          </div>
           <div className="about__text">
             <h2 className="about__title">About the author</h2>
             <p className="about__description">
@@ -14,17 +21,10 @@ function About() {
               The application demonstrates responsive design principles, semantic HTML structure, and follows BEM methodology for CSS organization. It integrates with news APIs to provide real-time content and includes features like article saving, search functionality, and mobile-optimized layouts.
             </p>
           </div>
-          <div className="about__image">
-            <img 
-              src="/src/images/author.jpg" 
-              alt="Author" 
-              className="about__author-photo"
-            />
-          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default About

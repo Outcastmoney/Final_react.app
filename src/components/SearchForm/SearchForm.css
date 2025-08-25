@@ -5,22 +5,28 @@
 
 .search-form__input-container {
   display: flex;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 100px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(26, 27, 34, 0.15);
+  width: 608px;
+  border: 1px solid #D1D2D6;
 }
 
 .search-form__input {
   flex-grow: 1;
   border: none;
   padding: 21px 24px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
   color: #1a1b22;
+  background-color: #ffffff;
   outline: none;
+  width: 608px;
+  height: 64px;
+  border-radius: 100px;
+  
 }
 
 .search-form__input::placeholder {
@@ -42,13 +48,17 @@
   color: white;
   border: none;
   padding: 21px 24px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   min-width: 168px;
+  border-radius: 100px;
+  width: 168px;
+  height: 64px;
+  box-shadow: 0px 5px 15px 0px #0E1A3933;
 }
 
 .search-form__button:hover {
@@ -63,7 +73,7 @@
 .search-form__error {
   display: block;
   color: #ff0000;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -75,13 +85,13 @@
   .search-form {
     max-width: 100%;
   }
-  
+
   .search-form__input {
     padding: 18px 20px;
     font-size: 14px;
     line-height: 20px;
   }
-  
+
   .search-form__button {
     padding: 18px 20px;
     font-size: 14px;
@@ -95,11 +105,11 @@
     flex-direction: column;
     border-radius: 8px;
   }
-  
+
   .search-form__input {
     border-radius: 8px 8px 0 0;
   }
-  
+
   .search-form__button {
     border-radius: 0 0 8px 8px;
     width: 100%;

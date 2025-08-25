@@ -10,7 +10,7 @@
 }
 
 .news-cards__title {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: 40px;
   font-weight: 400;
   line-height: 46px;
@@ -33,7 +33,7 @@
   border: none;
   border-radius: 8px;
   padding: 18px 24px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;
@@ -58,14 +58,14 @@
 .news-cards__not-found-icon {
   width: 96px;
   height: 96px;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDgiIGN5PSI0OCIgcj0iNDgiIGZpbGw9IiNEMUQyRDYiLz4KPHBhdGggZD0iTTQ4IDI0VjcyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMjQgNDhINzIiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=');
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDgiIGN5PSI0OCIgcj0iNDgiIGZpbGw9IiNEMUQyRDYiLz4KPHBhdGggZD0iTTQ4IDI0VjcyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMjQgNDhINzIiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPgo=");
   background-repeat: no-repeat;
   background-position: center;
   margin: 0 auto 32px auto;
 }
 
 .news-cards__not-found-title {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: 26px;
   font-weight: 400;
   line-height: 30px;
@@ -74,7 +74,7 @@
 }
 
 .news-cards__not-found-text {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
@@ -92,17 +92,17 @@
   .news-cards {
     padding: 64px 0;
   }
-  
+
   .news-cards__container {
     padding: 0 16px;
   }
-  
+
   .news-cards__title {
     font-size: 30px;
     line-height: 34px;
     margin-bottom: 48px;
   }
-  
+
   .news-cards__list {
     grid-template-columns: 1fr;
     margin-bottom: 48px;
@@ -113,7 +113,7 @@
   .news-cards {
     padding: 48px 0;
   }
-  
+
   .news-cards__title {
     font-size: 24px;
     line-height: 28px;

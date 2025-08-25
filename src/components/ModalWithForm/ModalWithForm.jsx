@@ -1,5 +1,5 @@
 import "./ModalWithForm.css";
-import closeIcon from "../../assets/close.svg";
+import closeIcon from "../../images/close.png";
 
 function ModalWithForm({
   children,
@@ -29,21 +29,24 @@ function ModalWithForm({
           {children}
           {showDefaultButtons && (
             <div className="modal__buttons">
-              <button 
-                type="submit" 
-                className="modal__submit" 
+              <button
+                type="submit"
+                className="modal__submit"
                 disabled={disabled}
               >
                 {buttonText}
               </button>
               {buttonTextAlt && onButtonClick && (
-                <button 
-                  type="button" 
-                  className="modal__alt-button"
-                  onClick={onButtonClick}
-                >
-                  {buttonTextAlt}
-                </button>
+                <div className="modal__alt-text">
+                  <span className="modal__alt-text-or">or </span>
+                  <button
+                    type="button"
+                    className="modal__alt-button"
+                    onClick={onButtonClick}
+                  >
+                    {buttonTextAlt}
+                  </button>
+                </div>
               )}
             </div>
           )}

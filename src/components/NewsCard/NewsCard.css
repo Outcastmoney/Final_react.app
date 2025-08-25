@@ -1,11 +1,15 @@
 .news-card {
-  background-color: white;
+  background: #ffffff;
   border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   overflow: hidden;
-  box-shadow: 0 8px 16px rgba(26, 27, 34, 0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   cursor: pointer;
+  width: 400px;
+  height: 576px;
+  display: flex;
+  flex-direction: column;
 }
 
 .news-card:hover {
@@ -25,7 +29,7 @@
   object-fit: cover;
 }
 
-.news-card__save-button {
+.news-card__bookmark-button {
   position: absolute;
   top: 24px;
   right: 24px;
@@ -42,24 +46,25 @@
   z-index: 10;
 }
 
-.news-card__save-button:hover {
+.news-card__bookmark-button:hover {
+  transform: scale(1.05);
   background-color: #f5f6f7;
 }
 
-.news-card__save-button:focus {
+.news-card__bookmark-button:focus {
   outline: 2px solid #2f71e5;
   outline-offset: 2px;
 }
 
-.news-card__save-icon {
+.news-card__bookmark-icon {
   width: 24px;
   height: 24px;
   fill: #b6bcbf;
   transition: fill 0.3s ease;
 }
 
-.news-card__save-button_saved .news-card__save-icon {
-  fill: #2f71e5;
+.news-card__bookmark-button_saved {
+  background-color: #e8f0fe;
 }
 
 .news-card__keyword {
@@ -70,7 +75,7 @@
   color: #1a1b22;
   padding: 8px 16px;
   border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -79,10 +84,13 @@
 
 .news-card__content {
   padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .news-card__date {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -92,7 +100,7 @@
 }
 
 .news-card__title {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: 26px;
   font-weight: 400;
   line-height: 30px;
@@ -100,12 +108,13 @@
   margin: 0 0 16px 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .news-card__description {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
@@ -113,12 +122,14 @@
   margin: 0 0 24px 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: 1;
 }
 
 .news-card__source {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
@@ -152,16 +163,16 @@
   .news-card__image-container {
     height: 200px;
   }
-  
+
   .news-card__content {
     padding: 20px;
   }
-  
+
   .news-card__title {
     font-size: 22px;
     line-height: 26px;
   }
-  
+
   .news-card__description {
     font-size: 14px;
     line-height: 20px;

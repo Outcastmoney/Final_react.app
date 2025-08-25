@@ -45,18 +45,19 @@
 
 .modal__close {
   position: absolute;
-  top: 20px;
-  right: 28px;
+  top: -60px;
+  right: -60px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s ease;
+  z-index: 10;
 }
 
 .modal__close:hover {
@@ -64,8 +65,8 @@
 }
 
 .modal__close-icon {
-  width: 100%;
-  height: 100%;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 
@@ -115,16 +116,18 @@
 
 .modal__submit {
   width: 100%;
-  background: #000;
+  background: #2F71E5;
   border: none;
-  border-radius: 4px;
+  border-radius: 100px;
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 1.2;
-  padding: 13px 0;
+  line-height: 24px;
+  padding: 18px 24px;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: background-color 0.2s ease;
+  height: 64px;
+  box-shadow: 0px 5px 15px 0px #0E1A3933;
 }
 
 .modal__submit:disabled {
@@ -134,7 +137,21 @@
 }
 
 .modal__submit:not(:disabled):hover {
-  opacity: 0.8;
+  background: #1d4ed8;
+}
+
+.modal__alt-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.modal__alt-text-or {
+  color: #000000;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-right: 4px;
 }
 
 .modal__alt-button {
@@ -185,7 +202,7 @@
   line-height: 1.2;
 }
 .modal__close-icon {
-  width: 20px;
-  height: 20px;
-  transform: none;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
