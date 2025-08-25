@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import './Header.css'
 
-function Header() {
+function Header({ onSignInClick, onSignUpClick }) {
   const location = useLocation()
   const isMainPage = location.pathname === '/'
 
@@ -29,6 +29,24 @@ function Header() {
                 Saved articles
               </Link>
             </li>
+            <li className="header__nav-item">
+              <button 
+                className="header__auth-button header__auth-button_type_signin"
+                onClick={onSignInClick}
+              >
+                Sign in
+              </button>
+            </li>
+            {!isMainPage && (
+              <li className="header__nav-item">
+                <button 
+                  className="header__auth-button header__auth-button_type_signup"
+                  onClick={onSignUpClick}
+                >
+                  Sign up
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
