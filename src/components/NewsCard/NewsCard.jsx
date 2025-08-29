@@ -1,13 +1,19 @@
-import { useSavedArticles } from '../../contexts/SavedArticlesContext'
+import { useSavedArticles } from '../../hooks/useSavedArticles'
 import './NewsCard.css'
+import saveIcon from '../../images/save.png'
+import savedIcon from '../../images/saved.png'
 
-function NewsCard({ article, keyword }) {
+function NewsCard({ article, keyword, isLoggedIn }) {
   const { saveArticle, removeArticle, isArticleSaved } = useSavedArticles()
   const isSaved = isArticleSaved(article)
 
   const handleBookmarkClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    
+    if (!isLoggedIn) {
+      return // Do nothing if not logged in
+    }
     
     if (isSaved) {
       removeArticle(article)
@@ -33,18 +39,27 @@ function NewsCard({ article, keyword }) {
           alt={article.title}
           className="news-card__image"
         />
-        <button 
-          className={`news-card__bookmark-button ${isSaved ? 'news-card__bookmark-button_saved' : ''}`}
-          onClick={handleBookmarkClick}
-          aria-label={isSaved ? 'Remove bookmark' : 'Bookmark article'}
-        >
-          <svg className="news-card__bookmark-icon" viewBox="0 0 24 24">
-            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
-          </svg>
-        </button>
-        {keyword && (
-          <span className="news-card__keyword">{keyword}</span>
-        )}
+        <div className="news-card__bookmark-container">
+          <button 
+            className={`news-card__bookmark-button ${isSaved ? 'news-card__bookmark-button_saved' : ''} ${!isLoggedIn ? 'news-card__bookmark-button_disabled' : ''}`}
+            onClick={handleBookmarkClick}
+            disabled={!isLoggedIn}
+            aria-label={!isLoggedIn ? 'Sign in to save' : (isSaved ? 'Remove bookmark' : 'Bookmark article')}
+          >
+            <img 
+              src={isSaved ? savedIcon : saveIcon}
+              alt={isSaved ? 'Saved' : 'Save'}
+              className="news-card__bookmark-icon"
+            />
+          </button>
+          {!isLoggedIn && (
+            <div className="news-card__sign-in-tooltip">
+              <span className="news-card__sign-in-text">
+                Sign in to save
+              </span>
+            </div>
+          )}
+        </div>
       </div>
       <div className="news-card__content">
         <time className="news-card__date">

@@ -1,4 +1,4 @@
-/* LoginModal styles copied for consistency */
+
 .login-modal__form {
   display: flex;
   flex-direction: column;
@@ -20,7 +20,11 @@
   line-height: 1.2;
   outline: none;
   transition: border-color 0.2s ease;
+  background-color: transparent;
+  color: #000 !important;
 }
+
+
 
 .login-modal__input:focus {
   border-color: #08111b;
@@ -232,10 +236,13 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
-  color: #1a1b22;
+  color: #1a1b22 !important;
+  background-color: #ffffff;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
 }
+
+
 
 
 .modal__input:focus {

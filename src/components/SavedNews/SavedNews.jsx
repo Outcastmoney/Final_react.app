@@ -1,5 +1,5 @@
-import { useSavedArticles } from '../../contexts/SavedArticlesContext';
-import NewsCard from '../NewsCard/NewsCard';
+import { useSavedArticles } from '../../hooks/useSavedArticles';
+import SavedNewsCard from '../SavedNewsCard/SavedNewsCard';
 import "./SavedNews.css";
 
 function SavedNews() {
@@ -44,7 +44,7 @@ function SavedNews() {
           <div className="saved-news__container">
             <div className="saved-news__articles-list">
               {savedArticles.map((article) => (
-                <NewsCard
+                <SavedNewsCard
                   key={article.id}
                   article={article}
                   keyword={article.keyword}

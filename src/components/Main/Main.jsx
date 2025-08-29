@@ -2,9 +2,10 @@ import { useState } from 'react'
 import SearchForm from '../SearchForm/SearchForm'
 import NewsCardsList from '../NewsCardsList/NewsCardsList'
 import About from '../About/About'
+import { searchNews } from '../../utils/newsApi'
 import './Main.css'
 
-function Main() {
+function Main({ isLoggedIn }) {
   const [articles, setArticles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchPerformed, setSearchPerformed] = useState(false)
@@ -16,8 +17,7 @@ function Main() {
     setKeyword(searchKeyword)
     
     try {
-      const response = await fetch(`http://localhost:3001/api/news?q=${encodeURIComponent(searchKeyword)}`)
-      const data = await response.json()
+      const data = await searchNews(searchKeyword)
       setArticles(data.articles || [])
     } catch (error) {
       console.error('Error fetching news:', error)
@@ -44,6 +44,7 @@ function Main() {
           articles={articles} 
           isLoading={isLoading} 
           keyword={keyword}
+          isLoggedIn={isLoggedIn}
         />
       )}
       

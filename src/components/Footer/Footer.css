@@ -1,14 +1,23 @@
 .footer {
   padding: 20px 0;
+  background-color: #ffffff;
+  position: relative;
+  z-index: 1;
 }
 
 .footer__container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 200px;
+  padding: 0 104px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.footer__right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
 }
 
 .footer__copyright {
@@ -67,6 +76,10 @@
   fill: #1a1b22;
 }
 
+.footer__social-icon_image {
+  object-fit: contain;
+}
+
 @media screen and (max-width: 768px) {
   .footer {
     padding: 48px 0;
@@ -77,6 +90,11 @@
     flex-direction: column;
     gap: 32px;
     text-align: center;
+  }
+
+  .footer__right {
+    flex-direction: column;
+    gap: 24px;
   }
 
   .footer__nav-list {

@@ -3,7 +3,7 @@ import NewsCard from '../NewsCard/NewsCard'
 import Preloader from '../Preloader/Preloader'
 import './NewsCardsList.css'
 
-function NewsCardsList({ articles, isLoading, keyword }) {
+function NewsCardsList({ articles, isLoading, keyword, isLoggedIn }) {
   const [visibleCards, setVisibleCards] = useState(3)
 
   const showMoreCards = () => {
@@ -40,6 +40,7 @@ function NewsCardsList({ articles, isLoading, keyword }) {
               key={`${article.url}-${index}`} 
               article={article} 
               keyword={keyword}
+              isLoggedIn={isLoggedIn}
             />
           ))}
         </div>

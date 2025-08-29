@@ -1,14 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-
-const SavedArticlesContext = createContext();
-
-export const useSavedArticles = () => {
-  const context = useContext(SavedArticlesContext);
-  if (!context) {
-    throw new Error('useSavedArticles must be used within a SavedArticlesProvider');
-  }
-  return context;
-};
+import React, { useState } from 'react';
+import { SavedArticlesContext } from './SavedArticlesContext.js';
 
 export const SavedArticlesProvider = ({ children }) => {
   const [savedArticles, setSavedArticles] = useState([]);
@@ -35,7 +26,6 @@ export const SavedArticlesProvider = ({ children }) => {
   };
 
   const isArticleSaved = (article) => {
-    const articleId = article.url || article.title;
     return savedArticles.some(saved => saved.url === article.url || saved.title === article.title);
   };
 

@@ -9,7 +9,7 @@ import SignUpModal from './components/SignUpModal/SignUpModal'
 import DeleteConfirmationModal from './components/DeleteConfirmationModal/DeleteConfirmationModal'
 import SuccessModal from './components/SuccessModal/SuccessModal'
 import { CurrentUserContext } from './contexts/CurrentUserContext'
-import { SavedArticlesProvider } from './contexts/SavedArticlesContext'
+import { SavedArticlesProvider } from './contexts/SavedArticlesContext.jsx'
 import { checkToken } from './utils/auth'
 import './App.css'
 
