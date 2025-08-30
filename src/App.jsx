@@ -8,6 +8,7 @@ import SignInModal from './components/SignInModal/SignInModal'
 import SignUpModal from './components/SignUpModal/SignUpModal'
 import DeleteConfirmationModal from './components/DeleteConfirmationModal/DeleteConfirmationModal'
 import SuccessModal from './components/SuccessModal/SuccessModal'
+import AvatarModal from './components/AvatarModal/AvatarModal'
 import { CurrentUserContext } from './contexts/CurrentUserContext'
 import { SavedArticlesProvider } from './contexts/SavedArticlesContext.jsx'
 import { checkToken } from './utils/auth'
@@ -18,18 +19,27 @@ function App() {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false)
   const [itemToDelete, setItemToDelete] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userAvatar, setUserAvatar] = useState('')
 
   // Check for existing token on app load
   useEffect(() => {
     const token = localStorage.getItem('jwt')
+    
     if (token) {
       checkToken(token)
         .then((user) => {
           setCurrentUser(user)
           setIsLoggedIn(true)
+          // Load user-specific avatar after successful login
+          const userAvatarKey = `userAvatar_${user.id || user.email}`
+          const savedAvatar = localStorage.getItem(userAvatarKey)
+          if (savedAvatar) {
+            setUserAvatar(savedAvatar)
+          }
         })
         .catch((err) => {
           console.error('Token validation failed:', err)
@@ -60,7 +70,28 @@ function App() {
     setIsSignUpModalOpen(false)
     setIsDeleteModalOpen(false)
     setIsSuccessModalOpen(false)
+    setIsAvatarModalOpen(false)
     setItemToDelete(null)
+  }
+
+  const openAvatarModal = () => {
+    setIsAvatarModalOpen(true)
+  }
+
+  const handleAvatarSave = (imageUrl) => {
+    setUserAvatar(imageUrl)
+    if (currentUser) {
+      const userAvatarKey = `userAvatar_${currentUser.id || currentUser.email}`
+      localStorage.setItem(userAvatarKey, imageUrl)
+    }
+  }
+
+  const handleAvatarDelete = () => {
+    setUserAvatar('')
+    if (currentUser) {
+      const userAvatarKey = `userAvatar_${currentUser.id || currentUser.email}`
+      localStorage.removeItem(userAvatarKey)
+    }
   }
 
   const handleDeleteClick = (item) => {
@@ -78,6 +109,7 @@ function App() {
     localStorage.removeItem('jwt')
     setCurrentUser(null)
     setIsLoggedIn(false)
+    setUserAvatar('') // Clear avatar from state when signing out
   }
 
   return (
@@ -100,6 +132,9 @@ function App() {
                   <Main
                     isLoggedIn={isLoggedIn}
                     onDeleteClick={handleDeleteClick}
+                    userAvatar={userAvatar}
+                    onAvatarClick={openAvatarModal}
+                    currentUser={currentUser}
                   />
                 }
               />
@@ -140,6 +175,14 @@ function App() {
             isOpen={isSuccessModalOpen}
             onClose={closeModals}
             onSignInClick={openSignInModal}
+          />
+
+          <AvatarModal 
+            isOpen={isAvatarModalOpen}
+            onClose={closeModals}
+            onSave={handleAvatarSave}
+            onDelete={handleAvatarDelete}
+            currentAvatar={userAvatar}
           />
         </Router>
         </div>

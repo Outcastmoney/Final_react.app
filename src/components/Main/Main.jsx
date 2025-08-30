@@ -5,7 +5,7 @@ import About from '../About/About'
 import { searchNews } from '../../utils/newsApi'
 import './Main.css'
 
-function Main({ isLoggedIn }) {
+function Main({ isLoggedIn, userAvatar, onAvatarClick, currentUser }) {
   const [articles, setArticles] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchPerformed, setSearchPerformed] = useState(false)
@@ -48,7 +48,12 @@ function Main({ isLoggedIn }) {
         />
       )}
       
-      <About />
+      <About 
+        userAvatar={userAvatar}
+        onAvatarClick={onAvatarClick}
+        currentUser={currentUser}
+        isLoggedIn={isLoggedIn}
+      />
     </div>
   )
 }

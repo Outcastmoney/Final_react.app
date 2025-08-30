@@ -6,8 +6,9 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   cursor: pointer;
-  width: 400px;
-  height: 576px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
 }
@@ -206,22 +207,28 @@
 }
 
 @media screen and (max-width: 768px) {
+  .news-card {
+    min-height: 450px;
+  }
+
   .news-card__image-container {
-    height: 200px;
+    height: 180px;
   }
 
   .news-card__content {
-    padding: 20px;
+    padding: 16px;
   }
 
   .news-card__title {
-    font-size: 22px;
-    line-height: 26px;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 12px;
   }
 
   .news-card__description {
     font-size: 14px;
-    line-height: 20px;
+    line-height: 18px;
+    margin-bottom: 16px;
   }
 
   .news-card__sign-in-tooltip {
@@ -232,5 +239,97 @@
   .news-card__sign-in-text {
     font-size: 11px;
     line-height: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .news-card {
+    min-height: 400px;
+  }
+
+  .news-card__image-container {
+    height: 160px;
+  }
+
+  .news-card__content {
+    padding: 14px;
+  }
+
+  .news-card__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 10px;
+  }
+
+  .news-card__description {
+    font-size: 13px;
+    line-height: 17px;
+    margin-bottom: 14px;
+  }
+
+  .news-card__date {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .news-card__source {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .news-card {
+    min-height: 360px;
+  }
+
+  .news-card__image-container {
+    height: 140px;
+  }
+
+  .news-card__content {
+    padding: 12px;
+  }
+
+  .news-card__title {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 8px;
+  }
+
+  .news-card__description {
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 12px;
+  }
+
+  .news-card__date {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .news-card__source {
+    font-size: 13px;
+  }
+
+  .news-card__keyword {
+    padding: 6px 12px;
+    font-size: 11px;
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .news-card__bookmark-container {
+    top: 16px;
+    right: 16px;
+  }
+
+  .news-card__bookmark-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .news-card__bookmark-icon {
+    width: 20px;
+    height: 20px;
   }
 }

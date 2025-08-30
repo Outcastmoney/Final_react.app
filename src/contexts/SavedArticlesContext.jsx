@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { SavedArticlesContext } from './SavedArticlesContext.js';
+import { CurrentUserContext } from './CurrentUserContext.js';
 
 export const SavedArticlesProvider = ({ children }) => {
+  const currentUser = useContext(CurrentUserContext);
   const [savedArticles, setSavedArticles] = useState([]);
+
+  // Load user-specific saved articles when user changes
+  useEffect(() => {
+    if (currentUser) {
+      const userSavedKey = `savedArticles_${currentUser.id || currentUser.email}`;
+      const saved = localStorage.getItem(userSavedKey);
+      setSavedArticles(saved ? JSON.parse(saved) : []);
+    } else {
+      setSavedArticles([]); // Clear articles when signed out
+    }
+  }, [currentUser]);
+
+  // Save to localStorage whenever savedArticles changes (only if user is signed in)
+  useEffect(() => {
+    if (currentUser) {
+      const userSavedKey = `savedArticles_${currentUser.id || currentUser.email}`;
+      localStorage.setItem(userSavedKey, JSON.stringify(savedArticles));
+    }
+  }, [savedArticles, currentUser]);
 
   const saveArticle = (article, keyword) => {
     const articleWithId = {

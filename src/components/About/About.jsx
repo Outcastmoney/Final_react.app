@@ -1,16 +1,33 @@
 import './About.css'
 
-function About() {
+function About({ userAvatar, onAvatarClick, currentUser, isLoggedIn }) {
   return (
     <section className="about">
       <div className="about__container">
         <div className="about__content">
           <div className="about__image">
-            <img 
-              src="/src/images/placeholder.png" 
-              alt="Author" 
-              className="about__author-photo"
-            />
+            {isLoggedIn ? (
+              <button
+                className="about__avatar-button"
+                onClick={onAvatarClick}
+                type="button"
+              >
+                <img 
+                  src={userAvatar || "/src/images/placeholder.png"}
+                  alt="Author" 
+                  className="about__author-photo"
+                  onError={(e) => {
+                    e.target.src = "/src/images/placeholder.png";
+                  }}
+                />
+              </button>
+            ) : (
+              <img 
+                src="/src/images/placeholder.png"
+                alt="Author" 
+                className="about__author-photo"
+              />
+            )}
           </div>
           <div className="about__text">
             <h2 className="about__title">About the author</h2>
