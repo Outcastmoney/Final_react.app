@@ -1,6 +1,6 @@
 import './About.css'
 
-function About({ userAvatar, onAvatarClick, currentUser, isLoggedIn }) {
+function About({ userAvatar, onAvatarClick, isLoggedIn }) {
   return (
     <section className="about">
       <div className="about__container">
