@@ -4,7 +4,7 @@ A responsive news application that allows users to search for articles and save 
 
 ## Live Demo
 
-🚀 **[View Live Application](https://your-deployed-app-url.netlify.app)** *(Update this link after deployment)*
+🚀 **[View Live Application](https://final-react-app-mocha.vercel.app)**
 
 ### Quick Deployment Guide
 
@@ -28,7 +28,7 @@ A responsive news application that allows users to search for articles and save 
 - **Vite** - Build tool and development server
 - **CSS3** - Styling with BEM methodology
 - **NewsAPI** - External news data source
-- **Netlify** - Deployment platform
+- **Vercel** - Deployment platform
 
 ## Features
 

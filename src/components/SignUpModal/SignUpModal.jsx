@@ -1,17 +1,17 @@
-import { useState, useEffect, useCallback } from 'react';
-import ModalWithForm from '../ModalWithForm/ModalWithForm';
-import { register } from '../../utils/auth';
-import './SignUpModal.css';
+import { useState, useEffect, useCallback } from "react";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { register } from "../../utils/auth";
+import "./SignUpModal.css";
 
 const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [usernameError, setUsernameError] = useState('');
+  const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
@@ -20,40 +20,40 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
-      setEmailError('Email is required');
+      setEmailError("Email is required");
       return false;
     } else if (!emailRegex.test(email)) {
-      setEmailError('Please enter a valid email address');
+      setEmailError("Please enter a valid email address");
       return false;
     }
-    setEmailError('');
+    setEmailError("");
     return true;
   };
-  
+
   const validatePassword = (password) => {
     if (!password) {
-      setPasswordError('Password is required');
+      setPasswordError("Password is required");
       return false;
     } else if (password.length < 6) {
-      setPasswordError('Password must be at least 6 characters');
+      setPasswordError("Password must be at least 6 characters");
       return false;
     }
-    setPasswordError('');
+    setPasswordError("");
     return true;
   };
 
   const validateUsername = (username) => {
     if (!username) {
-      setUsernameError('Username is required');
+      setUsernameError("Username is required");
       return false;
     } else if (username.length < 2) {
-      setUsernameError('Username must be at least 2 characters');
+      setUsernameError("Username must be at least 2 characters");
       return false;
     }
-    setUsernameError('');
+    setUsernameError("");
     return true;
   };
-  
+
   const validateForm = useCallback(() => {
     const isEmailValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const isPasswordValid = password && password.length >= 6;
@@ -66,19 +66,19 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
     if (isOpen) {
       validateForm();
     } else {
-      setEmail('');
-      setPassword('');
-      setUsername('');
-      setEmailError('');
-      setPasswordError('');
-      setUsernameError('');
+      setEmail("");
+      setPassword("");
+      setUsername("");
+      setEmailError("");
+      setPasswordError("");
+      setUsernameError("");
       setEmailTouched(false);
       setPasswordTouched(false);
       setUsernameTouched(false);
-      setError('');
+      setError("");
     }
   }, [isOpen, validateForm]);
-  
+
   useEffect(() => {
     if (isOpen) {
       validateForm();
@@ -87,41 +87,42 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sign up form submitted');
-    console.log('Form values:', { email, password, username });
-    console.log('Form valid:', isFormValid);
-    
+    console.log("Sign up form submitted");
+    console.log("Form values:", { email, password, username });
+    console.log("Form valid:", isFormValid);
+
     setEmailTouched(true);
     setPasswordTouched(true);
     setUsernameTouched(true);
-    
+
     const formIsValid = validateForm();
-    console.log('Validation result:', formIsValid);
-    
+    console.log("Validation result:", formIsValid);
+
     if (!formIsValid) {
-      console.log('Form validation failed');
+      console.log("Form validation failed");
       return;
     }
-    
+
     setIsLoading(true);
-    setError('');
+    setError("");
 
     register(email, password, username)
       .then((data) => {
-        console.log('Sign up successful:', data);
-        setEmail('');
-        setPassword('');
-        setUsername('');
-        setError('');
+        console.log("Sign up successful:", data);
+        setEmail("");
+        setPassword("");
+        setUsername("");
+        setError("");
         onClose();
+        // Show success modal after successful registration
         onSuccess();
       })
       .catch((err) => {
-        console.error('Registration error:', err);
+        console.error("Registration error:", err);
         if (err.message) {
           setError(err.message);
         } else {
-          setError('Registration failed. Please try again.');
+          setError("Registration failed. Please try again.");
         }
       })
       .finally(() => {
@@ -135,7 +136,7 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       title="Sign up"
-      buttonText={isLoading ? 'Signing up...' : 'Sign up'}
+      buttonText={isLoading ? "Signing up..." : "Sign up"}
       buttonTextAlt="Sign in"
       onButtonClick={onSwitchToSignIn}
       disabled={isLoading || !isFormValid}
@@ -144,7 +145,9 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
       <label className="login-modal__label">
         <p className="login-modal__input-title">Email</p>
         <input
-          className={`login-modal__input ${emailTouched && emailError ? 'login-modal__input_error' : ''}`}
+          className={`login-modal__input ${
+            emailTouched && emailError ? "login-modal__input_error" : ""
+          }`}
           type="email"
           name="email"
           value={email}
@@ -156,12 +159,16 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
           placeholder="Email"
           required
         />
-        {emailTouched && emailError && <p className="login-modal__input-error">{emailError}</p>}
+        {emailTouched && emailError && (
+          <p className="login-modal__input-error">{emailError}</p>
+        )}
       </label>
       <label className="login-modal__label">
         <p className="login-modal__input-title">Password</p>
         <input
-          className={`login-modal__input ${passwordTouched && passwordError ? 'login-modal__input_error' : ''}`}
+          className={`login-modal__input ${
+            passwordTouched && passwordError ? "login-modal__input_error" : ""
+          }`}
           type="password"
           name="password"
           value={password}
@@ -173,12 +180,16 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
           placeholder="Password"
           required
         />
-        {passwordTouched && passwordError && <p className="login-modal__input-error">{passwordError}</p>}
+        {passwordTouched && passwordError && (
+          <p className="login-modal__input-error">{passwordError}</p>
+        )}
       </label>
       <label className="login-modal__label">
         <p className="login-modal__input-title">Username</p>
         <input
-          className={`login-modal__input ${usernameTouched && usernameError ? 'login-modal__input_error' : ''}`}
+          className={`login-modal__input ${
+            usernameTouched && usernameError ? "login-modal__input_error" : ""
+          }`}
           type="text"
           name="username"
           value={username}
@@ -190,11 +201,13 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
           placeholder="Username"
           required
         />
-        {usernameTouched && usernameError && <p className="login-modal__input-error">{usernameError}</p>}
+        {usernameTouched && usernameError && (
+          <p className="login-modal__input-error">{usernameError}</p>
+        )}
       </label>
       {error && <p className="login-modal__error">{error}</p>}
     </ModalWithForm>
   );
-}
+};
 
 export default SignUpModal;

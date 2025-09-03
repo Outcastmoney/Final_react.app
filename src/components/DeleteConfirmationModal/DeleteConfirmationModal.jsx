@@ -1,3 +1,4 @@
+// DeleteConfirmationModal component
 import "./DeleteConfirmationModal.css";
 
 function DeleteConfirmationModal({ isOpen, onClose, onConfirm, card }) {
@@ -9,7 +10,8 @@ function DeleteConfirmationModal({ isOpen, onClose, onConfirm, card }) {
           &times;
         </button>
         <p className="modal__warning">
-          Are you sure you want to delete this item? This action is irreversible.
+          Are you sure you want to delete this item? This action is
+          irreversible.
         </p>
         <div className="modal__actionButtons">
           <button

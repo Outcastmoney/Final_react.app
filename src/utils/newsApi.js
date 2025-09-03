@@ -1,10 +1,9 @@
-const API_KEY = '05a9592a2a9845d7a740d37c1088952b';
-const BASE_URL = 'https://newsapi.org/v2';
+const BASE_URL = 'https://final-express-app.vercel.app/api';
 
 export const searchNews = async (query) => {
   try {
     const response = await fetch(
-      `${BASE_URL}/everything?q=${encodeURIComponent(query)}&apiKey=${API_KEY}&pageSize=100&sortBy=publishedAt`
+      `${BASE_URL}/news?q=${encodeURIComponent(query)}`
     );
     
     if (!response.ok) {
