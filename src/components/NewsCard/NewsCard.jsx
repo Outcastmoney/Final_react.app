@@ -35,7 +35,7 @@ function NewsCard({ article, keyword, isLoggedIn }) {
     <article className="news-card">
       <div className="news-card__image-container">
         <img
-          src={article.urlToImage || "/src/images/placeholder.jpg"}
+          src={article.urlToImage || "/src/images/placeholder.png"}
           alt={article.title}
           className="news-card__image"
         />

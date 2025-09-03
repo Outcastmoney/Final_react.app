@@ -24,7 +24,7 @@ function SavedNewsCard({ article, keyword }) {
     <article className="saved-news-card">
       <div className="saved-news-card__image-container">
         <img
-          src={article.urlToImage || "/src/images/placeholder.jpg"}
+          src={article.urlToImage || "/src/images/placeholder.png"}
           alt={article.title}
           className="saved-news-card__image"
         />
