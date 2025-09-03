@@ -12,7 +12,7 @@ function NewsCard({ article, keyword, isLoggedIn }) {
     e.stopPropagation()
     
     if (!isLoggedIn) {
-      return // Do nothing if not logged in
+      return
     }
     
     if (isSaved) {

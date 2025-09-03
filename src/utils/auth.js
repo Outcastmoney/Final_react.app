@@ -1,8 +1,6 @@
-// Mock authentication for Stage 1 project
 export const authorize = (email, password) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // Simple validation
       if (!email || !password) {
         reject(new Error('Email and password are required'));
         return;
@@ -13,13 +11,11 @@ export const authorize = (email, password) => {
         return;
       }
       
-      // Mock successful login
       const user = {
         email: email,
         name: email.split('@')[0]
       };
       
-      // Store user data for later retrieval
       localStorage.setItem('mock-user-data', JSON.stringify(user));
       
       resolve({
@@ -33,7 +29,6 @@ export const authorize = (email, password) => {
 export const register = (email, password, name) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // Simple validation
       if (!email || !password || !name) {
         reject(new Error('All fields are required'));
         return;
@@ -44,13 +39,11 @@ export const register = (email, password, name) => {
         return;
       }
       
-      // Mock successful registration
       const user = {
         email: email,
         name: name
       };
       
-      // Store user data for later retrieval
       localStorage.setItem('mock-user-data', JSON.stringify(user));
       
       resolve({
@@ -69,7 +62,6 @@ export const checkToken = (token) => {
         return;
       }
       
-      // Extract user info from token (mock implementation)
       const userData = localStorage.getItem('mock-user-data');
       
       if (userData) {

@@ -114,7 +114,6 @@ const SignUpModal = ({ isOpen, onClose, onSwitchToSignIn, onSuccess }) => {
         setUsername('');
         setError('');
         onClose();
-        // Show success modal after successful registration
         onSuccess();
       })
       .catch((err) => {

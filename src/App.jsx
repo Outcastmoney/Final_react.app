@@ -25,7 +25,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userAvatar, setUserAvatar] = useState('')
 
-  // Check for existing token on app load
   useEffect(() => {
     const token = localStorage.getItem('jwt')
     
@@ -34,7 +33,6 @@ function App() {
         .then((user) => {
           setCurrentUser(user)
           setIsLoggedIn(true)
-          // Load user-specific avatar after successful login
           const userAvatarKey = `userAvatar_${user.id || user.email}`
           const savedAvatar = localStorage.getItem(userAvatarKey)
           if (savedAvatar) {
@@ -100,7 +98,6 @@ function App() {
   }
 
   const handleDeleteConfirm = (item) => {
-    // Handle delete logic here
     console.log('Deleting item:', item)
     closeModals()
   }
@@ -109,7 +106,7 @@ function App() {
     localStorage.removeItem('jwt')
     setCurrentUser(null)
     setIsLoggedIn(false)
-    setUserAvatar('') // Clear avatar from state when signing out
+    setUserAvatar('')
   }
 
   return (
