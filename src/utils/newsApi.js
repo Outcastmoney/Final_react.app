@@ -1,9 +1,11 @@
-const API_KEY = "05a9592a2a9845d7a740d37c1088952b";
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://newsapi-proxy-server.vercel.app/api'
+  : 'http://localhost:3001/api';
 
 export const searchNews = async (query) => {
   try {
     const response = await fetch(
-      `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&apiKey=${API_KEY}&language=en&sortBy=publishedAt&pageSize=100`
+      `${BASE_URL}/news?q=${encodeURIComponent(query)}`
     );
     
     if (!response.ok) {
